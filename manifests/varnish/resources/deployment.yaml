@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: varnish
+spec:
+  selector:
+    matchLabels:
+      app: varnish
+  template:
+    metadata:
+      labels:
+        app: varnish
+    spec:
+      containers:
+      - name: varnish
+        image: varnish:7.1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: VARNISH_SIZE
+          value: 1G
+        volumeMounts:
+        - name: config
+          mountPath: /etc/varnish
+        - name: workdir
+          mountPath: /var/lib/varnish/varnishd
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+        resources:
+          requests:
+            cpu: 250m
+            memory: 1.5Gi
+      securityContext:
+        runAsUser: 0
+      volumes:
+      - name: workdir
+        emptyDir:
+          medium: Memory
+      - name: config
+        configMap:
+          name: varnish-config

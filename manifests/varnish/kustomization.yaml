@@ -1,0 +1,11 @@
+resources:
+- resources/deployment.yaml
+- resources/service.yaml
+
+configMapGenerator:
+- name: varnish-config
+  files:
+  - config/default.vcl
+
+generatorOptions:
+  disableNameSuffixHash: true

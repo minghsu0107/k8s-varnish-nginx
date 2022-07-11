@@ -1,0 +1,5 @@
+namespace: demo
+resources:
+- varnish/
+- nginx/
+- namespace.yaml
