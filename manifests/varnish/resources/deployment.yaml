@@ -17,6 +17,7 @@ spec:
         ports:
         - containerPort: 80
         env:
+        # set cache size
         - name: VARNISH_SIZE
           value: 1G
         volumeMounts:
