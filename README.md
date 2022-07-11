@@ -1,11 +1,11 @@
 # k8s-varnish-nginx
 This repository domonstrates how to deploy Varnish, a high-performance caching HTTP reverse proxy, on Kubernetes.
-
+## Deployment
 Apply manifests:
 ```bash
 kustomize build manifests | kubectl apply -f -
 ```
-
+## Testing
 Open port-forward to varnish service:
 ```bash
 kubectl -n demo port-forward svc/varnish 8008:80
@@ -14,7 +14,7 @@ Test whether caching works:
 ```bash
 curl -v http://localhost:8008
 ```
-Success response example:
+Example of a successful response:
 ```
 *   Trying 127.0.0.1:8008...
 * Connected to localhost (127.0.0.1) port 8008 (#0)
